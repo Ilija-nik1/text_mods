@@ -13,4 +13,4 @@ modified_text = text_mods.make_text_capitalized(modified_text)
 modified_text = text_mods.make_text_reversed(modified_text)
 
 print(modified_text)
-# Output: !DLROW ,OLLEH</H2></I></B></U></S></SPAN>
+#Output: </s>!</u></b></i></h2>OLLEW ,OLLEH
