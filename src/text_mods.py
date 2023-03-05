@@ -1,3 +1,33 @@
+import re
+import string
+import nltk
+from nltk.corpus import wordnet
+
+def remove_html_tags(text):
+    """Remove HTML tags from a given text string.
+
+    Args:
+        text (str): The text to modify.
+
+    Returns:
+        str: The modified text.
+    """
+    clean = re.compile('<.*?>')
+    return re.sub(clean, '', text)
+
+def remove_punctuation(text):
+    """Remove punctuation from a given text string.
+
+    Args:
+        text (str): The text to modify.
+
+    Returns:
+        str: The modified text.
+    """
+    translator = str.maketrans('', '', string.punctuation)
+    return text.translate(translator)
+
+
 def make_text_bigger(text, size):
     """Increase the font size of the text.
 
@@ -9,6 +39,26 @@ def make_text_bigger(text, size):
         str: The modified text.
     """
     return f'<h{size}>{text}</h{size}>'
+
+def replace_with_synonyms(text):
+    """Replace words in a given text with their synonyms.
+
+    Args:
+        text (str): The text to modify.
+
+    Returns:
+        str: The modified text.
+    """
+    tokens = nltk.word_tokenize(text)
+    new_text = []
+    for token in tokens:
+        syns = wordnet.synsets(token)
+        if syns:
+            new_text.append(syns[0].lemmas()[0].name())
+        else:
+            new_text.append(token)
+    return ' '.join(new_text)
+
 
 def make_text_italics(text):
     """Add italics formatting to the text.
