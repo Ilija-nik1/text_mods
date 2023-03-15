@@ -2,21 +2,32 @@ import re
 import string
 import nltk
 from nltk.corpus import wordnet
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def get_synonyms(word: str) -> list:
+    """Get a list of synonyms for a given word."""
+    synonyms = []
+    for syn in wordnet.synsets(word):
+        for lemma in syn.lemmas():
+            if lemma.name() not in synonyms and lemma.name() != word:
+                synonyms.append(lemma.name())
+    return synonyms
 
 def remove_html_tags(text: str) -> str:
     """Remove HTML tags from a given text string."""
-    clean = re.compile('<.*?>')
-    return re.sub(clean, '', text)
+    html_pattern = re.compile('<.*?>')
+    return re.sub(html_pattern, '', text)
 
 def remove_punctuation(text: str) -> str:
     """Remove punctuation from a given text string."""
     translator = str.maketrans('', '', string.punctuation)
     return text.translate(translator)
 
-def replace_with_synonyms(text: str) -> str:
-    """Replace words in a given text with their synonyms."""
+def replace_with_first_synonym(text: str) -> str:
+    """Replace words in a given text with their first synonym."""
     tokens = nltk.word_tokenize(text)
-    new_text = [wordnet.synsets(token)[0].lemmas()[0].name() if wordnet.synsets(token) else token for token in tokens]
+    new_text = [get_synonyms(token)[0] if get_synonyms(token) else token for token in tokens]
     return ' '.join(new_text)
 
 def make_heading(text: str, size: int) -> str:
