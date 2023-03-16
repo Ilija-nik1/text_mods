@@ -48,7 +48,11 @@ Dependencies
 This code requires the following dependencies:
 
 re
+
 string
+
 nltk
+
 nltk.corpus.wordnet
+
 functools.lru_cache
