@@ -1,6 +1,6 @@
 # Text Formatting Toolkit
 
-text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms, and applying different formatting styles such as bold, italic, and colored text.
+text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms and applying different formatting styles such as bold, italic and colored text.
 
 ## Requirements+
 
@@ -11,7 +11,7 @@ text_mods is a Python module for formatting text strings in various ways. It inc
 ## Installation
 
 * Install Python 3.6 or higher from the official website: [Here] (<https://www.python.org/downloads/>)
-* Install the NLTK library by running pip install nltk in your terminal or command prompt.
+* Install the NLTK library by running **pip install nltk** in your terminal or command prompt.
 * Download the WordNet database by running the following commands in a Python interpreter:
 arduino
 
@@ -24,9 +24,9 @@ nltk.download('wordnet')
 
 ### Clone
 
-Clone the repository using git:
+Clone the repository using git
 
-```bash
+``` bash
 git clone https://github.com/Ilija-nik1/text_mods.git
 ```
 
