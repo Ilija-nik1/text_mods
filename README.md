@@ -1,58 +1,59 @@
-Introduction
+# Text Formatting Toolkit
 
-This code provides a set of functions to perform text processing tasks. These tasks include removing HTML tags and punctuation, replacing words with their synonyms, and formatting text with different styles such as bold, italic, and more.
+text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms, and applying different formatting styles such as bold, italic, and colored text.
 
-Functions
+## Requirements+
 
-remove_html_tags(text: str) -> str
-This function removes HTML tags from a given text string.
+* Python 3.6 or higher
+* NLTK library
+* WordNet database
 
-remove_punctuation(text: str) -> str
-This function removes punctuation from a given text string.
+## Installation
 
-replace_with_first_synonym(text: str) -> str
-This function replaces words in a given text with their first synonym.
+* Install Python 3.6 or higher from the official website: [Here] (<https://www.python.org/downloads/>)
+* Install the NLTK library by running pip install nltk in your terminal or command prompt.
+* Download the WordNet database by running the following commands in a Python interpreter:
+arduino
 
-make_heading(text: str, size: int) -> str
-This function increases the font size of the text by creating a heading with the specified size (1 to 6).
+``` Python
+import nltk
+nltk.download('wordnet')
+```
 
-make_italics(text: str) -> str
-This function adds italics formatting to the text.
+* Download or clone the code from the Github repository: [GitHub] (<https://github.com/Ilija-nik1/text_mods>)
 
-make_bold(text: str) -> str
-This function adds bold formatting to the text.
+### Clone
 
-make_underline(text: str) -> str
-This function adds underline formatting to the text.
+Clone the repository using git:
 
-make_strikethrough(text: str) -> str
-This function adds strikethrough formatting to the text.
+```bash
+git clone https://github.com/Ilija-nik1/text_mods.git
+```
 
-make_colored(text: str, color: str) -> str
-This function adds colored formatting to the text by specifying the color as a string in HTML format (e.g., "red", "#FF0000").
+## Usage
 
-make_uppercase(text: str) -> str
-This function converts text to uppercase.
+Here are some examples of how to use the functions in the module
 
-make_lowercase(text: str) -> str
-This function converts text to lowercase.
+``` Python
+from text_mods import *
 
-make_capitalized(text: str) -> str
-This function capitalizes the first letter of each word in the text.
+text = '<h1>Hello, world!</h1>'
+text = remove_html_tags(text)
+text = make_bold(text)
+print(text)  # <b>Hello, world!</b>
 
-make_reversed(text: str) -> str
-This function reverses the order of characters in the text.
+text = 'This is a sample sentence.'
+text = replace_with_first_synonym(text)
+text = make_colored(text, 'red')
+print(text)  # <span style="color:red">This is a sampling sentence.</span>
+```
 
-Dependencies
+For more information on each function, please refer to the docstrings in the code.
 
-This code requires the following dependencies:
+## Contributing
 
-re
+If you find any bugs or have suggestions for new features, please open an issue or pull request on the Github repository.
 
-string
+## License
 
-nltk
-
-nltk.corpus.wordnet
-
-functools.lru_cache
+This code is licensed under the MIT License.

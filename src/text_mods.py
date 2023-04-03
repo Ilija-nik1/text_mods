@@ -3,11 +3,11 @@ import string
 import nltk
 from nltk.corpus import wordnet
 from functools import lru_cache
+from typing import List
 
-@lru_cache(maxsize=128)
-def get_synonyms(word: str) -> list:
+def get_synonyms(word: str) -> List[str]:
     """Get a list of synonyms for a given word."""
-    synonyms = []
+    synonyms: List[str] = []
     for syn in wordnet.synsets(word):
         for lemma in syn.lemmas():
             if lemma.name() not in synonyms and lemma.name() != word:

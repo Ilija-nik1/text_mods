@@ -1,11 +1,11 @@
-#Usag: To use these functions, you need to import the code and call the desired function with the appropriate parameters. For example:
-#Make sure to have all the dependencies installed before using these functions.
-import text_mods
+from text_mods import *
 
-text = "This is an example text."
-text = text_processing.remove_html_tags(text)
-text = text_processing.remove_punctuation(text)
-text = text_processing.replace_with_first_synonym(text)
-text = text_processing.make_bold(text)
-print(text)
-#This will output: "This is an exemplar school text."
+text = '<h1>Hello, world!</h1>'
+text = remove_html_tags(text)
+text = make_bold(text)
+print(text)  # <b>Hello, world!</b>
+
+text = 'This is a sample sentence.'
+text = replace_with_first_synonym(text)
+text = make_colored(text, 'red')
+print(text)  # <span style="color:red">This is a sampling sentence.</span>
