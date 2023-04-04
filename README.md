@@ -1,17 +1,21 @@
 # Text Formatting Toolkit
 
-text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms and applying different formatting styles such as bold, italic and colored text.
+text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms, applying different formatting styles such as bold, italic and colored text. In addition it performs natural language processing tasks such as entity recognition, word frequency counting and text summarization.
 
 ## Requirements+
 
 * Python 3.6 or higher
 * NLTK library
 * WordNet database
+* gensim library
+* googletrans library
+* spacy library
+* en_core_web_sm package for Spacy
 
 ## Installation
 
 * Install Python 3.6 or higher from the official website: [Here] (<https://www.python.org/downloads/>)
-* Install the NLTK library by running **pip install nltk** in your terminal or command prompt.
+* Install the NLTK library by running ```pip install nltk``` in your terminal or command prompt.
 * Download the WordNet database by running the following commands in a Python interpreter:
 arduino
 
@@ -20,7 +24,12 @@ import nltk
 nltk.download('wordnet')
 ```
 
-* Download or clone the code from the Github repository: [GitHub] (<https://github.com/Ilija-nik1/text_mods>)
+* Install the gensim, googletrans, and spacy libraries by running
+
+```pip install gensim googletrans spacy```
+
+* Download the en_core_web_sm package for Spacy by running ```python -m spacy download en_core_web_sm```
+* Download or clone the code from the Github repository: [Github] (<https://github.com/Ilija-nik1/text_mods>)
 
 ### Clone
 
