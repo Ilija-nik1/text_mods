@@ -2,11 +2,13 @@
 
 text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms, applying different formatting styles such as bold, italic and colored text. In addition it performs natural language processing tasks such as entity recognition, word frequency counting and text summarization.
 
-## Requirements+
+## Requirements
+
+Make sure you have the following requirements installed before running the code:
 
 * Python 3.6 or higher
-* NLTK library
-* WordNet database
+* NLTK library: Install NLTK using 'pip install nltk'
+* NLTK WordNet database
 * gensim library
 * googletrans library
 * spacy library
@@ -17,16 +19,17 @@ text_mods is a Python module for formatting text strings in various ways. It inc
 * Install Python 3.6 or higher from the official website: [Here] (<https://www.python.org/downloads/>)
 * Install the NLTK library by running ```pip install nltk``` in your terminal or command prompt.
 * Download the WordNet database by running the following commands in a Python interpreter:
-arduino
 
 ``` Python
 import nltk
 nltk.download('wordnet')
 ```
 
-* Install the gensim, googletrans, and spacy libraries by running
-
-```pip install gensim googletrans spacy```
+* Install gensim using ```pip install gensim```
+* Install googletrans using ```pip install googletrans```
+* Install spacy using ```pip install spacy```
+* Download the en_core_web_sm package for Spacy by running ```python -m spacy download en_core_web_sm```
+* Install the gensim, googletrans, and spacy libraries by running ```pip install gensim googletrans spacy```
 
 * Download the en_core_web_sm package for Spacy by running ```python -m spacy download en_core_web_sm```
 * Download or clone the code from the Github repository: [Github] (<https://github.com/Ilija-nik1/text_mods>)

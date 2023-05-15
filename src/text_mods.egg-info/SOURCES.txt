@@ -1,0 +1,5 @@
+setup.py
+text_mods.egg-info/PKG-INFO
+text_mods.egg-info/SOURCES.txt
+text_mods.egg-info/dependency_links.txt
+text_mods.egg-info/top_level.txt

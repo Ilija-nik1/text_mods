@@ -1,4 +1,4 @@
-from text_mods import *
+from text_mods import remove_html_tags, make_bold, replace_with_first_synonym, make_colored
 
 text = '<h1>Hello, world!</h1>'
 text = remove_html_tags(text)

@@ -1,46 +1,38 @@
 import re
 import string
-import nltk
-from nltk.corpus import wordnet
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer, WordNetLemmatizer
-from nltk import ne_chunk, pos_tag
-from nltk.tokenize import word_tokenize
-from nltk.tree import Tree
-from googletrans import Translator
-from gensim.summarization.summarizer import summarize
-from functools import lru_cache
 from typing import List
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from collections import Counter
 import random
-import spacy
+from nltk.corpus import wordnet
+from transformers import pipeline
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk import pos_tag, ne_chunk, word_tokenize
+from nltk.tree import Tree
+from googletrans import Translator
+from functools import lru_cache
 
 stemmer = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
-nlp = spacy.load('en_core_web_sm')
 
 def get_synonyms(word: str, method: str) -> List[str]:
     """Get a list of synonyms for a given word."""
-    synonyms: List[str] = []
+    synonyms = set()
     if method == "synonyms":
         for syn in wordnet.synsets(word):
-            for lemma in syn.lemmas():
-                if lemma.name() not in synonyms and lemma.name() != word:
-                    synonyms.append(lemma.name())
+            synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != word)
     elif method == "stemming":
         base_word = stemmer.stem(word)
         for syn in wordnet.synsets(base_word):
-            for lemma in syn.lemmas():
-                if lemma.name() not in synonyms and lemma.name() != base_word:
-                    synonyms.append(lemma.name())
+            synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != base_word)
     elif method == "lemmatization":
-        pos = nltk.pos_tag([word])[0][1][0].lower()
+        pos = pos_tag([word])[0][1][0].lower()
         base_word = lemmatizer.lemmatize(word, pos=pos)
         for syn in wordnet.synsets(base_word):
-            for lemma in syn.lemmas():
-                if lemma.name() not in synonyms and lemma.name() != base_word:
-                    synonyms.append(lemma.name())
-    return synonyms
+            synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != base_word)
+    return list(synonyms)
 
 def remove_html_tags(text: str) -> str:
     """Remove HTML tags from a given text string."""
@@ -78,7 +70,9 @@ def remove_stopwords(text: str) -> str:
 
 def summarize_text(text: str) -> str:
     """Summarize a given text string."""
-    return summarize(text)
+    summarizer = pipeline("summarization")
+    summary = summarizer(text, max_length=100, min_length=30, do_sample=False)
+    return summary[0]['summary']
 
 def extract_entities(text: str) -> List[str]:
     """Extract named entities from a given text string."""
