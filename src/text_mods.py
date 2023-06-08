@@ -10,6 +10,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk import pos_tag, ne_chunk
 from nltk.tree import Tree
+from functools import lru_cache
 
 from transformers import pipeline
 from googletrans import Translator
@@ -19,22 +20,33 @@ stemmer = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
 
 STOPWORDS_LANGUAGE = 'english'
+stopwords = set(stopwords.words(STOPWORDS_LANGUAGE))
+
+def pre_load_stopwords():
+    nltk.download('stopwords')
+    nltk.download('averaged_perceptron_tagger')
+    nltk.download('wordnet')
+
+pre_load_stopwords()
 
 @lru_cache(maxsize=None)
-def get_synonyms(word: str, method: str) -> List[str]:
+def get_synonyms(word: str, method: str, stopwords: set) -> list:
     synonyms = set()
-    if method == "synonyms":
+
+    def get_synonyms_for_word(word):
         for syn in wordnet.synsets(word):
             synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != word)
-    elif method == "stemming":
-        base_word = stemmer.stem(word)
-        for syn in wordnet.synsets(base_word):
-            synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != base_word)
-    elif method == "lemmatization":
-        pos = pos_tag([word])[0][1][0].lower()
-        base_word = lemmatizer.lemmatize(word, pos=pos)
-        for syn in wordnet.synsets(base_word):
-            synonyms.update(lemma.name() for lemma in syn.lemmas() if lemma.name() != base_word)
+
+    methods = {
+        "synonyms": get_synonyms_for_word,
+        "stemming": lambda word: get_synonyms_for_word(stemmer.stem(word)),
+        "lemmatization": lambda word: get_synonyms_for_word(lemmatizer.lemmatize(word, pos=pos_tag([word])[0][1][0].lower()))
+    }
+
+    method_func = methods.get(method)
+    if method_func:
+        method_func(word)
+
     return list(synonyms)
 
 def remove_html_tags(text: str) -> str:
