@@ -30,9 +30,8 @@ nltk.download('wordnet')
 * Install spacy using ```pip install spacy```
 * Download the en_core_web_sm package for Spacy by running ```python -m spacy download en_core_web_sm```
 * Install the gensim, googletrans, and spacy libraries by running ```pip install gensim googletrans spacy```
-
 * Download the en_core_web_sm package for Spacy by running ```python -m spacy download en_core_web_sm```
-* Download or clone the code from the Github repository: [Github] (<https://github.com/Ilija-nik1/text_mods>)
+* Download or clone the code from the Github repository: [Github](<https://github.com/Ilija-nik1/text_mods>)
 
 ### Clone
 
