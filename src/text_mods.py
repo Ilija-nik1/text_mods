@@ -6,7 +6,7 @@ from collections import Counter
 
 import nltk
 from nltk.corpus import stopwords, wordnet
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk import pos_tag, ne_chunk
 from nltk.tree import Tree
@@ -14,7 +14,6 @@ from functools import lru_cache
 
 from transformers import pipeline
 from googletrans import Translator
-from functools import lru_cache
 
 stemmer = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
@@ -58,22 +57,22 @@ def remove_punctuation(text: str) -> str:
     return text.translate(translator)
 
 def replace_with_first_synonym(text: str) -> str:
-    tokens = nltk.word_tokenize(text)
+    tokens = word_tokenize(text)
     new_text = [get_synonyms(token)[0] if get_synonyms(token) else token for token in tokens]
     return ' '.join(new_text)
 
 def replace_with_random_synonym(text: str, method: str) -> str:
-    tokens = nltk.word_tokenize(text)
+    tokens = word_tokenize(text)
     new_text = [random.choice(get_synonyms(token, method)) if get_synonyms(token, method) else token for token in tokens]
     return ' '.join(new_text)
 
 def count_word_frequencies(text: str) -> Counter:
-    tokens = nltk.word_tokenize(text)
+    tokens = word_tokenize(text)
     return Counter(tokens)
 
 def remove_stopwords(text: str) -> str:
     stop_words = set(stopwords.words(STOPWORDS_LANGUAGE))
-    tokens = nltk.word_tokenize(text)
+    tokens = word_tokenize(text)
     filtered_text = [token for token in tokens if token.lower() not in stop_words]
     return ' '.join(filtered_text)
 
@@ -116,3 +115,25 @@ def make_capitalized(text: str) -> str:
 
 def make_reversed(text: str) -> str:
     return text[::-1]
+
+translator = Translator()
+
+def translate_text(text: str, src_lang: str, dest_lang: str) -> str:
+    translation = translator.translate(text, src=src_lang, dest=dest_lang)
+    return translation.text
+
+def detect_language(text: str) -> str:
+    detection = translator.detect(text)
+    return detection.lang
+
+def tokenize_sentences(text: str) -> List[str]:
+    sentences = sent_tokenize(text)
+    return sentences
+
+def tokenize_words(text: str) -> List[str]:
+    words = word_tokenize(text)
+    return words
+
+def remove_numbers(text: str) -> str:
+    text_without_numbers = re.sub(r'\d+', '', text)
+    return text_without_numbers
