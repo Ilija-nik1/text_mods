@@ -14,6 +14,7 @@ from functools import lru_cache
 
 from transformers import pipeline
 from googletrans import Translator
+from textblob import TextBlob
 
 stemmer = PorterStemmer()
 lemmatizer = WordNetLemmatizer()
@@ -137,3 +138,22 @@ def tokenize_words(text: str) -> List[str]:
 def remove_numbers(text: str) -> str:
     text_without_numbers = re.sub(r'\d+', '', text)
     return text_without_numbers
+
+def safe_translate(text, src_lang, dest_lang):
+    try:
+        return translate_text(text, src_lang, dest_lang)
+    except Exception as e:
+        print(f"Error in translation: {e}")
+        return text
+
+def correct_spelling(text: str) -> str:
+    corrected_text = TextBlob(text).correct()
+    return str(corrected_text)
+
+def analyze_sentiment(text: str) -> float:
+    sentiment = TextBlob(text).sentiment.polarity
+    return sentiment
+
+def extract_keywords(text: str, num_keywords: int = 5) -> List[str]:
+    blob = TextBlob(text)
+    return [item[0] for item in blob.np_counts.most_common(num_keywords)]

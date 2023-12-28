@@ -2,6 +2,15 @@
 
 text_mods is a Python module for formatting text strings in various ways. It includes functions for removing HTML tags and punctuation, replacing words with synonyms, applying different formatting styles such as bold, italic and colored text. In addition it performs natural language processing tasks such as entity recognition, word frequency counting and text summarization.
 
+## Features
+
+* Text Cleaning: Remove HTML tags, punctuation, and numbers from text.
+* Text Formatting: Apply styles like bold, italic, underline, and color.
+* NLP Tasks: Perform entity recognition, word frequency counting, and summarization.
+* Text Transformation: Replace words with synonyms, translate text, and more.
+* Sentiment Analysis: Analyze the sentiment of text.
+* Customization: Extensive options for text processing tailored to specific needs.
+
 ## Requirements
 
 Make sure you have the following requirements installed before running the code:
@@ -23,6 +32,8 @@ Make sure you have the following requirements installed before running the code:
 ``` Python
 import nltk
 nltk.download('wordnet')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
 ```
 
 * Install gensim using ```pip install gensim```
